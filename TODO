@@ -1,0 +1,9 @@
+Observações:
+    - Cada câmera tem URL de playlist e stream diferentes
+    - 
+
+
+Backend:
+    - Adicionar autenticação para pegar o token hls_ctx
+
+Frontend:
