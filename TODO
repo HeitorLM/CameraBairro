@@ -5,5 +5,7 @@ Observações:
 
 Backend:
     - Adicionar autenticação para pegar o token hls_ctx
+    - Fazer download dinamicamente do arquivo cameras.json
+    - 
 
 Frontend:
