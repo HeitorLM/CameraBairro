@@ -36,3 +36,33 @@ video {
 .video-wrapper video {
     display: block;
 }
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    #video-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .video-wrapper {
+        width: 100%;
+    }
+
+    .video-wrapper video {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .video-wrapper h4 {
+        font-size: 1em;
+    }
+}
