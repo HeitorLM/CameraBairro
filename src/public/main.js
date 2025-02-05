@@ -15,9 +15,34 @@ document.addEventListener('DOMContentLoaded', async () => {
             const videoWrapper = document.createElement('div');
             videoWrapper.className = 'video-wrapper';
 
+            const titleWrapper = document.createElement('div');
+            titleWrapper.className = 'title-wrapper';
+
             const title = document.createElement('h4');
             title.textContent = streamTitle;
-            videoWrapper.appendChild(title);
+            titleWrapper.appendChild(title);
+
+            // Adicionar botão de reset
+            const resetButton = document.createElement('button');
+            resetButton.textContent = '⟳';
+            resetButton.addEventListener('click', () => {
+                const video = document.getElementById(`video-${index}`);
+                if (Hls.isSupported()) {
+                    const hls = new Hls();
+                    hls.loadSource(streamUrl);
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                        video.play();
+                    });
+                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = streamUrl;
+                    video.addEventListener('loadedmetadata', () => {
+                        video.play();
+                    });
+                }
+            });
+            titleWrapper.appendChild(resetButton);
+            videoWrapper.appendChild(titleWrapper);
 
             const video = document.createElement('video');
             video.id = `video-${index}`;

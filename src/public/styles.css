@@ -24,6 +24,7 @@ video {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .video-wrapper h4 {
@@ -31,6 +32,15 @@ video {
     text-align: center;
     color: black;
     background-color: transparent;
+    display: inline-block;
+}
+
+.video-wrapper button {
+    position: absolute;
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
 }
 
 .video-wrapper video {
