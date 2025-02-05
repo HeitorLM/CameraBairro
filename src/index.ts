@@ -1,9 +1,13 @@
 import express from 'express';
 import path from 'path';
 import videoRouter from './routes/video';
+import cors from 'cors';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// Use CORS middleware
+app.use(cors());
 
 // Servir arquivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
