@@ -27,8 +27,13 @@ export default class CameraService {
         return camera ? camera.lastShot : undefined;
     }
 
-    getCamerTitleById(id: number): string | undefined {
+    getCameraTitleById(id: number): string | undefined {
         const camera = this.getCameraById(id);
         return camera ? camera.title : undefined;
+    }
+
+    getCameraLatLongById(id: number): string | undefined {
+        const camera = this.getCameraById(id);
+        return camera ? camera.latitude + camera.longitude : undefined;
     }
 }
