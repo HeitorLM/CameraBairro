@@ -2,10 +2,15 @@ Observações:
     - Cada câmera tem URL de playlist e stream diferentes
     - 
 
-
 Backend:
     - Adicionar autenticação para pegar o token hls_ctx
     - Fazer download dinamicamente do arquivo cameras.json
-    - 
 
 Frontend:
+    ✔ Adicionar sidebar com lista de câmeras (com nome e thumbnail) @done(25-02-06 11:05)
+        ✔ Checkbox para ativar/desativar câmera @done(25-02-06 11:05)
+        ✔ Certificar que ao deselecionar uma câmera, ela pare de ser requisitada @done(25-02-06 11:05)
+        - Adicionar botão para abrir/fechar sidebar
+
+
+    - Portar o webapp para React
