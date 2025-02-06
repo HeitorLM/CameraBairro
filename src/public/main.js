@@ -14,12 +14,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             const streamUrl = data.stream_url;
             const streamTitle = data.title;
             const thumbnailUrl = data.thumbnail_url;
+            const status = data.status;
 
             const cameraItem = document.createElement('div');
             cameraItem.className = 'camera-item';
 
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
+            if (status === false) checkbox.disabled = true;
             checkbox.addEventListener('change', () => {
                 if (checkbox.checked) {
                     selectedCameras.push(index);

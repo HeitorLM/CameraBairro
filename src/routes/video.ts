@@ -7,6 +7,7 @@ type CameraArray = {
     title: string;
     thumbnail_url: string;
     stream_url: string;
+    status: boolean;
 }
 
 const router = express.Router();
@@ -19,17 +20,18 @@ router.get('/api/cameras', (req, res) => {
     cameraService.getAllCameras().forEach(camera => {
 
         // Selecionar cameras favoritas através do ID
-        const favCamerasId: string[] = ["738364", "651358", "564625", "809818", "742215"];
+        // const favCamerasId: string[] = ["738364", "651358", "564625", "809818", "742215"];
 
-        if (!favCamerasId.includes(camera.id.toString())) {
-            return;
-        }
+        // if (!favCamerasId.includes(camera.id.toString())) {
+        //     return;
+        // }
 
         cameraURLs.push({
             id: camera.id,
             title: camera.title,
             thumbnail_url: camera.lastShot,
             stream_url: camera.stream_url,
+            status: camera.status
         });
     });
 
