@@ -5,6 +5,7 @@ import CameraService from '../cameras';
 type CameraArray = {
     id: number;
     title: string;
+    thumbnail_url: string;
     stream_url: string;
 }
 
@@ -18,7 +19,7 @@ router.get('/api/cameras', (req, res) => {
     cameraService.getAllCameras().forEach(camera => {
 
         // Selecionar cameras favoritas através do ID
-        const favCamerasId: string[] = ["738364", "651358", "564625", "809818"];
+        const favCamerasId: string[] = ["738364", "651358", "564625", "809818", "742215"];
 
         if (!favCamerasId.includes(camera.id.toString())) {
             return;
@@ -27,6 +28,7 @@ router.get('/api/cameras', (req, res) => {
         cameraURLs.push({
             id: camera.id,
             title: camera.title,
+            thumbnail_url: camera.lastShot,
             stream_url: camera.stream_url,
         });
     });
