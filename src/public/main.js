@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const selectedCameras = [];
 
     // Buscar lista de URLs na api do express
-    const resp = await fetch('http://192.168.2.105:5000/api/cameras');
+    const resp = await fetch('http://localhost:5000/api/cameras');
 
     if (resp.status === 200) {
         // Pegar json de streamURLs
