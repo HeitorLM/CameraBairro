@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import crypto from 'crypto';
 import CameraService from '../cameras';
 
 type CameraArray = {
@@ -12,6 +13,10 @@ type CameraArray = {
 
 const router = express.Router();
 
+const hashCameraTitle = (title: string): string => {
+    return crypto.createHash('sha256').update(title).digest('hex');
+};
+
 // Rota para pegar URL das streams através do arquivo camera.json
 router.get('/api/cameras', (req, res) => {
     const cameraURLs: CameraArray[] = [];
@@ -21,7 +26,7 @@ router.get('/api/cameras', (req, res) => {
 
         cameraURLs.push({
             id: camera.id,
-            title: camera.title,
+            title: `Rua: ${hashCameraTitle(camera.title)}`,
             thumbnail_url: camera.lastShot,
             stream_url: camera.stream_url,
             status: camera.status
