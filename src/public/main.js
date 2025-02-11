@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const selectedCameras = [];
 
     // Buscar lista de URLs na api do express
-    const resp = await fetch('http://localhost:5000/api/cameras');
+    const resp = await fetch('http://192.168.2.105:5000/api/cameras');
 
     if (resp.status === 200) {
         // Pegar json de streamURLs
@@ -22,6 +22,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             if (status === false) checkbox.disabled = true;
+
+            // Selecionar e exibir automaticamente as câmeras favoritas
+            const favCamerasId = ["738364", "651358", "564625", "809818", "742215"];
+            if (favCamerasId.includes(data.id.toString())) {
+                checkbox.checked = true;
+                selectedCameras.push(index);
+                addCamera(streamUrl, streamTitle, index);
+            }
+
             checkbox.addEventListener('change', () => {
                 if (checkbox.checked) {
                     selectedCameras.push(index);
