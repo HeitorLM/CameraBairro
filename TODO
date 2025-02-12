@@ -11,6 +11,7 @@ Frontend:
         ✔ Checkbox para ativar/desativar câmera @done(25-02-06 11:05)
         ✔ Certificar que ao deselecionar uma câmera, ela pare de ser requisitada @done(25-02-06 11:05)
         - Adicionar botão para abrir/fechar sidebar
+        - Centralizar título da página
 
 
-    - Portar o webapp para React
+    ✔ Portar o webapp para React @done(25-02-12 17:25)
