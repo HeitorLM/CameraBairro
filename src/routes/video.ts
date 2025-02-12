@@ -1,7 +1,11 @@
+import { fileURLToPath } from 'url';
 import express from 'express';
 import path from 'path';
 import crypto from 'crypto';
 import CameraService from '../cameras';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 type CameraArray = {
     id: number;
@@ -26,7 +30,7 @@ router.get('/api/cameras', (req, res) => {
 
         cameraURLs.push({
             id: camera.id,
-            title: `Rua: ${hashCameraTitle(camera.title)}`,
+            title: hashCameraTitle(camera.title),
             thumbnail_url: camera.lastShot,
             stream_url: camera.stream_url,
             status: camera.status
