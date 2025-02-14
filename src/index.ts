@@ -16,7 +16,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.REACT_APP_API_PORT || 5001;
+const BASE_URL = process.env.VITE_API_BASE_URL || "localhost";
+const PORT = process.env.VITE_API_PORT || 5000;
 
 // Use CORS middleware
 app.use(cors());
@@ -32,5 +33,5 @@ app.get('*', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://${BASE_URL}:${PORT}`);
 });
