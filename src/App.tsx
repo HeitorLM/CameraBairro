@@ -11,6 +11,7 @@ const App: React.FC = () => {
 
     const [streams, setStreams] = useState<Stream[]>([]);
     const [selectedCameras, setSelectedCameras] = useState<number[]>([]);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const hlsInstances = useRef<(Hls | null)[]>([]);
 
     const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'localhost';
@@ -86,7 +87,10 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <div id="sidebar">
+            <button id="sidebar-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                {isSidebarOpen ? '◄' : '►'}
+            </button>
+            <div id="sidebar" className={isSidebarOpen ? '' : 'collapsed'}>
                 <h2>Câmeras</h2>
                 {streams.map((data: any, index: number) => (
                     <div key={index} className="camera-item">
@@ -95,6 +99,7 @@ const App: React.FC = () => {
                             disabled={!data.status}
                             checked={selectedCameras.includes(index)}
                             onChange={() => handleCheckboxChange(index, data.stream_url, data.title)}
+                            aria-label={`Selecionar câmera ${data.title}`}
                         />
                         <img src={data.thumbnail_url} alt={data.title} />
                         <span>{data.title}</span>
@@ -108,7 +113,7 @@ const App: React.FC = () => {
                         <div key={index} className="video-wrapper" id={`video-wrapper-${index}`}>
                             <div className="title-wrapper">
                                 <h4>{streams[index].title}</h4>
-                                <button onClick={() => addCamera(streams[index].stream_url, streams[index].title, index)}>⟳</button>
+                                <button onClick={() => addCamera(streams[index].stream_url, streams[index].title, index)} aria-label="Recarregar câmera">⟳</button>
                             </div>
                             <video id={`video-${index}`} controls width="640" height="360"></video>
                         </div>
