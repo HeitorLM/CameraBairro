@@ -37,9 +37,6 @@ video {
 }
 
 .video-wrapper button {
-    position: absolute;
-    top: -15px;
-    right: 0;
     background: none;
     border: none;
     font-size: 1.2em;
