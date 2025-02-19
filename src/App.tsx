@@ -84,6 +84,11 @@ const App: React.FC = () => {
         window.open(newTabUrl, '_blank');
     };
 
+    const closeStream = (index: number) => {
+        removeCamera(index);
+        setSelectedCameras((prevSelectedCameras) => prevSelectedCameras.filter((i) => i !== index));
+    };
+
     useEffect(() => {
         selectedCameras.forEach((index) => {
             const videoElement = document.getElementById(`video-${index}`) as HTMLVideoElement;
@@ -120,10 +125,10 @@ const App: React.FC = () => {
                     {selectedCameras.map((index) => (
                         <div key={index} className="video-wrapper" id={`video-wrapper-${index}`}>
                             <div className="title-wrapper">
-
                                 <h4>{streams[index].title}</h4>
                                 <button onClick={() => openInNewTab(streams[index].stream_url)} aria-label="Abrir YOLO em nova aba">👁️‍🗨️</button>
-                                <button onClick={() => addCamera(streams[index].stream_url, streams[index].title, index)} aria-label="Recarregar câmera">⟳</button>
+                                <button onClick={() => addCamera(streams[index].stream_url, streams[index].title, index)} aria-label="Recarregar câmera">🔄</button>
+                                <button onClick={() => closeStream(index)} aria-label="Fechar câmera">❌</button>
                             </div>
                             <video id={`video-${index}`} controls width="640" height="360"></video>
                         </div>
