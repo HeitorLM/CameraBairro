@@ -10,8 +10,13 @@ Frontend:
     ✔ Adicionar sidebar com lista de câmeras (com nome e thumbnail) @done(25-02-06 11:05)
         ✔ Checkbox para ativar/desativar câmera @done(25-02-06 11:05)
         ✔ Certificar que ao deselecionar uma câmera, ela pare de ser requisitada @done(25-02-06 11:05)
-        - Adicionar botão para abrir/fechar sidebar
+        ✔ Adicionar botão para abrir/fechar sidebar @done(25-02-18 03:09)
+            - Verificar funcionalidade ao redimensionar a tela
         - Centralizar título da página
 
 
     ✔ Portar o webapp para React @done(25-02-12 17:25)
+
+    - Modo Tela Cheia: Adicione um botão para ativar o modo tela cheia para os vídeos.
+    - Layouts Personalizados: Permita que os usuários escolham entre diferentes layouts (ex.: 1x1, 2x2, 3x3) para organizar os vídeos.
+    - 
