@@ -17,6 +17,9 @@ const App: React.FC = () => {
     const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'localhost';
     const API_PORT = import.meta.env.VITE_API_PORT || '5001';
 
+    const BASE_URL_YOLO = import.meta.env.VITE_API_BASE_URL_YOLO || 'localhost';
+    const API_PORT_YOLO = import.meta.env.VITE_API_PORT_YOLO || '3000';
+
     useEffect(() => {
         const fetchStreams = async () => {
             const resp = await fetch(`http://${BASE_URL}:${API_PORT}/api/cameras`);
@@ -77,7 +80,7 @@ const App: React.FC = () => {
     };
 
     const openInNewTab = (streamUrl: string) => {
-        const newTabUrl = `http://localhost:3000/?streamUrl=${encodeURIComponent(streamUrl)}`;
+        const newTabUrl = `http://${BASE_URL_YOLO}:${API_PORT_YOLO}/?streamUrl=${encodeURIComponent(streamUrl)}`;
         window.open(newTabUrl, '_blank');
     };
 
