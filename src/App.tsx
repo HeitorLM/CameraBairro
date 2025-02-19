@@ -100,7 +100,7 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <button id="sidebar-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+            <button id="sidebar-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)} title="Abrir/Fechar menu lateral">
                 {isSidebarOpen ? '◄' : '►'}
             </button>
             <div id="sidebar" className={isSidebarOpen ? '' : 'collapsed'}>
@@ -126,9 +126,9 @@ const App: React.FC = () => {
                         <div key={index} className="video-wrapper" id={`video-wrapper-${index}`}>
                             <div className="title-wrapper">
                                 <h4>{streams[index].title}</h4>
-                                <button onClick={() => openInNewTab(streams[index].stream_url)} aria-label="Abrir YOLO em nova aba">👁️‍🗨️</button>
-                                <button onClick={() => addCamera(streams[index].stream_url, streams[index].title, index)} aria-label="Recarregar câmera">🔄</button>
-                                <button onClick={() => closeStream(index)} aria-label="Fechar câmera">❌</button>
+                                <button onClick={() => openInNewTab(streams[index].stream_url)} aria-label="Abrir YOLO em nova aba" title="Abrir YOLO em nova aba">👁️‍🗨️</button>
+                                <button onClick={() => addCamera(streams[index].stream_url, streams[index].title, index)} aria-label="Recarregar câmera" title="Recarregar câmera">🔄</button>
+                                <button onClick={() => closeStream(index)} aria-label="Fechar câmera" title="Fechar câmera">❌</button>
                             </div>
                             <video id={`video-${index}`} controls width="640" height="360"></video>
                         </div>
