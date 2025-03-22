@@ -106,12 +106,12 @@ const App: React.FC = () => {
             <div id="sidebar" className={isSidebarOpen ? '' : 'collapsed'}>
                 <h2>Câmeras</h2>
                 {streams.map((data: any, index: number) => (
-                    <div key={index} className="camera-item">
+                    <div key={index} className="camera-item" onClick={() => handleCheckboxChange(index, data.stream_url, data.title)}>
                         <input
                             type="checkbox"
                             disabled={!data.status}
                             checked={selectedCameras.includes(index)}
-                            onChange={() => handleCheckboxChange(index, data.stream_url, data.title)}
+                            onChange={(e) => e.stopPropagation()} // Evita que o clique no checkbox dispare o evento do container
                             aria-label={`Selecionar câmera ${data.title}`}
                         />
                         <img src={data.thumbnail_url} alt={data.title} />
