@@ -19,6 +19,13 @@ h1 {
 
 video {
     background: #000;
+    border: 2px solid #333;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+video:hover {
+    border-color: #555;
 }
 
 .video-wrapper {
@@ -47,6 +54,10 @@ video {
     border-radius: 50%;
 }
 
+.video-wrapper button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 .video-wrapper video {
     display: block;
 }
@@ -62,6 +73,7 @@ video {
     overflow-y: auto;
     z-index: 1;
     transition: transform 0.3s ease;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
 }
 
 #sidebar.collapsed {
@@ -78,6 +90,12 @@ video {
     align-items: center;
     margin-bottom: 10px;
     color: white;
+    transition: background-color 0.3s ease;
+}
+
+.camera-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
 }
 
 .camera-item img {
@@ -86,7 +104,7 @@ video {
     margin-right: 10px;
 }
 
-.camera-item input[type="checkbox"] {
+camera-item input[type="checkbox"] {
     margin-right: 10px;
 }
 
@@ -112,6 +130,21 @@ video {
     padding: 10px;
     cursor: pointer;
     border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#sidebar-toggle:hover {
+    background-color: #444;
+    transform: scale(1.1);
+}
+
+button {
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #555;
+    transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
