@@ -18,7 +18,8 @@ type CameraArray = {
 const router = express.Router();
 
 const hashCameraTitle = (title: string): string => {
-    return crypto.createHash('sha256').update(title).digest('hex');
+    let crxpto = crypto.createHash('sha256').update(title).digest('hex');
+    return crxpto.substring(0, 16);
 };
 
 // Rota para pegar URL das streams através do arquivo camera.json
