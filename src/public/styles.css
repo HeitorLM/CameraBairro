@@ -108,6 +108,19 @@ camera-item input[type="checkbox"] {
     margin-right: 10px;
 }
 
+.camera-status {
+    margin-left: 8px;
+    font-size: 1.2em;
+}
+
+.camera-status.online {
+    color: green;
+}
+
+.camera-status.offline {
+    color: red;
+}
+
 #main-content {
     margin-left: 270px;
     padding: 20px;

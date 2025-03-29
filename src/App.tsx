@@ -13,6 +13,7 @@ const App: React.FC = () => {
     const [selectedCameras, setSelectedCameras] = useState<number[]>([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const hlsInstances = useRef<(Hls | null)[]>([]);
+    const [cameraStatuses, setCameraStatuses] = useState<Record<number, boolean>>({});
 
     const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'localhost';
     const API_PORT = import.meta.env.VITE_API_PORT || '5001';
@@ -32,6 +33,27 @@ const App: React.FC = () => {
         };
         fetchStreams();
     }, []);
+
+    const pingCamera = async (url: string, index: number) => {
+        try {
+            const response = await fetch(url, { method: 'HEAD' });
+            setCameraStatuses((prevStatuses) => ({
+                ...prevStatuses,
+                [index]: response.ok,
+            }));
+        } catch {
+            setCameraStatuses((prevStatuses) => ({
+                ...prevStatuses,
+                [index]: false,
+            }));
+        }
+    };
+
+    useEffect(() => {
+        streams.forEach((stream, index) => {
+            pingCamera(stream.stream_url, index);
+        });
+    }, [streams]);
 
     const addCamera = (streamUrl: string, streamTitle: string, index: number) => {
         const video = document.getElementById(`video-${index}`) as HTMLVideoElement;
@@ -116,6 +138,12 @@ const App: React.FC = () => {
                         />
                         <img src={data.thumbnail_url} alt={data.title} />
                         <span>{data.title}</span>
+                        <span
+                            className={`camera-status ${cameraStatuses[index] ? 'online' : 'offline'}`}
+                            title={cameraStatuses[index] ? 'Câmera online' : 'Câmera offline'}
+                        >
+                            {cameraStatuses[index] ? '🟢' : '🔴'}
+                        </span>
                     </div>
                 ))}
             </div>
