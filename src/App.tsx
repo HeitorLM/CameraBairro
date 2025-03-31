@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Hls from 'hls.js';
 
+import { useStreams } from './hooks/useStreams';
+
 const App: React.FC = () => {
     interface Stream {
         stream_url: string;
@@ -9,51 +11,13 @@ const App: React.FC = () => {
         status: boolean;
     }
 
-    const [streams, setStreams] = useState<Stream[]>([]);
+    const { streams, cameraStatuses } = useStreams();
     const [selectedCameras, setSelectedCameras] = useState<number[]>([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const hlsInstances = useRef<(Hls | null)[]>([]);
-    const [cameraStatuses, setCameraStatuses] = useState<Record<number, boolean>>({});
-
-    const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'localhost';
-    const API_PORT = import.meta.env.VITE_API_PORT || '5001';
 
     const BASE_URL_YOLO = import.meta.env.VITE_API_BASE_URL_YOLO || 'localhost';
     const API_PORT_YOLO = import.meta.env.VITE_API_PORT_YOLO || '3000';
-
-    useEffect(() => {
-        const fetchStreams = async () => {
-            const resp = await fetch(`http://${BASE_URL}:${API_PORT}/api/cameras`);
-            if (resp.status === 200) {
-                const data = await resp.json();
-                setStreams(data);
-            } else {
-                alert('Nenhuma câmera disponível');
-            }
-        };
-        fetchStreams();
-    }, []);
-
-    const pingCamera = async (url: string, index: number) => {
-        try {
-            const response = await fetch(url, { method: 'HEAD' });
-            setCameraStatuses((prevStatuses) => ({
-                ...prevStatuses,
-                [index]: response.ok,
-            }));
-        } catch {
-            setCameraStatuses((prevStatuses) => ({
-                ...prevStatuses,
-                [index]: false,
-            }));
-        }
-    };
-
-    useEffect(() => {
-        streams.forEach((stream, index) => {
-            pingCamera(stream.stream_url, index);
-        });
-    }, [streams]);
 
     const addCamera = (streamUrl: string, streamTitle: string, index: number) => {
         const video = document.getElementById(`video-${index}`) as HTMLVideoElement;

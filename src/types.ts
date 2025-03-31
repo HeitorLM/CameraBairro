@@ -100,3 +100,12 @@ export interface Camera {
     SourceCameraConfig: string | null;
     CameraDownloads: any[];
 }
+
+export interface Stream {
+    stream_url: string;
+    title: string;
+    thumbnail_url: string;
+    status: boolean;
+}
+
+export type CameraStatuses = Record<number, boolean>;
