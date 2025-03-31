@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useStreams } from './hooks/useStreams';
 import { useHls } from './hooks/useHls';
+import CameraItem from './components/CameraItem';
 
 const App: React.FC = () => {
-    interface Stream {
-        stream_url: string;
-        title: string;
-        thumbnail_url: string;
-        status: boolean;
-    }
 
     const { streams, cameraStatuses } = useStreams();
     const { addCamera, removeCamera } = useHls();
@@ -57,23 +52,17 @@ const App: React.FC = () => {
             <div id="sidebar" className={isSidebarOpen ? '' : 'collapsed'}>
                 <h2>Câmeras</h2>
                 {streams.map((data: any, index: number) => (
-                    <div key={index} className="camera-item" onClick={() => handleCheckboxChange(index, data.stream_url, data.title)}>
-                        <input
-                            type="checkbox"
-                            disabled={!data.status}
-                            checked={selectedCameras.includes(index)}
-                            onChange={(e) => e.stopPropagation()} // Evita que o clique no checkbox dispare o evento do container
-                            aria-label={`Selecionar câmera ${data.title}`}
-                        />
-                        <img src={data.thumbnail_url} alt={data.title} />
-                        <span>{data.title}</span>
-                        <span
-                            className={`camera-status ${cameraStatuses[index] ? 'online' : 'offline'}`}
-                            title={cameraStatuses[index] ? 'Câmera online' : 'Câmera offline'}
-                        >
-                            {cameraStatuses[index] ? '🟢' : '🔴'}
-                        </span>
-                    </div>
+                    <CameraItem
+                        key={index}
+                        index={index}
+                        streamUrl={data.stream_url}
+                        title={data.title}
+                        thumbnailUrl={data.thumbnail_url}
+                        status={data.status}
+                        isSelected={selectedCameras.includes(index)}
+                        isOnline={cameraStatuses[index]}
+                        onCheckboxChange={handleCheckboxChange}
+                    />
                 ))}
             </div>
             <div id="main-content">
