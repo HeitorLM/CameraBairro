@@ -3,6 +3,7 @@ import { useStreams } from './hooks/useStreams';
 import { useHls } from './hooks/useHls';
 import VideoWrapper from './components/VideoWrapper';
 import Sidebar from './components/Sidebar';
+import VideoGrid from './components/VideoGrid'; // Import do novo componente
 
 const App: React.FC = () => {
     const { streams, cameraStatuses } = useStreams();
@@ -58,19 +59,13 @@ const App: React.FC = () => {
             />
             <div id="main-content">
                 <h1>KebradaViewer</h1>
-                <div id="video-container">
-                    {selectedCameras.map((index) => (
-                        <VideoWrapper
-                            key={index}
-                            index={index}
-                            title={streams[index].title}
-                            streamUrl={streams[index].stream_url}
-                            onOpenInNewTab={openInNewTab}
-                            onReloadCamera={addCamera}
-                            onCloseStream={closeStream}
-                        />
-                    ))}
-                </div>
+                <VideoGrid
+                    selectedCameras={selectedCameras}
+                    streams={streams}
+                    onOpenInNewTab={openInNewTab}
+                    onReloadCamera={addCamera}
+                    onCloseStream={closeStream}
+                />
             </div>
         </div>
     );
