@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Hls from 'hls.js';
-
+import React, { useEffect, useState } from 'react';
 import { useStreams } from './hooks/useStreams';
+import { useHls } from './hooks/useHls';
 
 const App: React.FC = () => {
     interface Stream {
@@ -12,46 +11,12 @@ const App: React.FC = () => {
     }
 
     const { streams, cameraStatuses } = useStreams();
+    const { addCamera, removeCamera } = useHls();
     const [selectedCameras, setSelectedCameras] = useState<number[]>([]);
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const hlsInstances = useRef<(Hls | null)[]>([]);
 
     const BASE_URL_YOLO = import.meta.env.VITE_API_BASE_URL_YOLO || 'localhost';
     const API_PORT_YOLO = import.meta.env.VITE_API_PORT_YOLO || '3000';
-
-    const addCamera = (streamUrl: string, streamTitle: string, index: number) => {
-        const video = document.getElementById(`video-${index}`) as HTMLVideoElement;
-        if (!video) return;
-
-        if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(streamUrl);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                video.play();
-            });
-            hlsInstances.current[index] = hls;
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = streamUrl;
-            video.addEventListener('loadedmetadata', () => {
-                video.play();
-            });
-            hlsInstances.current[index] = null;
-        }
-    };
-
-    const removeCamera = (index: number) => {
-        const video = document.getElementById(`video-${index}`) as HTMLVideoElement;
-        if (video && hlsInstances.current[index]) {
-            hlsInstances.current[index]?.stopLoad();
-            hlsInstances.current[index]?.destroy();
-            hlsInstances.current[index] = null;
-
-            video.pause();
-            video.src = '';
-            video.remove();
-        }
-    };
 
     const handleCheckboxChange = (index: number, streamUrl: string, streamTitle: string) => {
         setSelectedCameras((prevSelectedCameras) => {
@@ -59,7 +24,7 @@ const App: React.FC = () => {
                 removeCamera(index);
                 return prevSelectedCameras.filter((i) => i !== index);
             } else {
-                addCamera(streamUrl, streamTitle, index);
+                addCamera(streamUrl, index);
                 return [...prevSelectedCameras, index];
             }
         });
@@ -79,7 +44,7 @@ const App: React.FC = () => {
         selectedCameras.forEach((index) => {
             const videoElement = document.getElementById(`video-${index}`) as HTMLVideoElement;
             if (!videoElement?.src) {
-                addCamera(streams[index].stream_url, streams[index].title, index);
+                addCamera(streams[index].stream_url, index);
             }
         });
     }, [selectedCameras, streams]);
@@ -119,7 +84,7 @@ const App: React.FC = () => {
                             <div className="title-wrapper">
                                 <h4>{streams[index].title}</h4>
                                 <button onClick={() => openInNewTab(streams[index].stream_url)} aria-label="Abrir YOLO em nova aba" title="Abrir YOLO em nova aba">👁️‍🗨️</button>
-                                <button onClick={() => addCamera(streams[index].stream_url, streams[index].title, index)} aria-label="Recarregar câmera" title="Recarregar câmera">🔄</button>
+                                <button onClick={() => addCamera(streams[index].stream_url, index)} aria-label="Recarregar câmera" title="Recarregar câmera">🔄</button>
                                 <button onClick={() => closeStream(index)} aria-label="Fechar câmera" title="Fechar câmera">❌</button>
                             </div>
                             <video id={`video-${index}`} controls width="640" height="360"></video>
