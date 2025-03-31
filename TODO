@@ -11,12 +11,12 @@ Frontend:
         ✔ Checkbox para ativar/desativar câmera @done(25-02-06 11:05)
         ✔ Certificar que ao deselecionar uma câmera, ela pare de ser requisitada @done(25-02-06 11:05)
         ✔ Adicionar botão para abrir/fechar sidebar @done(25-02-18 03:09)
-            - Verificar funcionalidade ao redimensionar a tela
+            ✔ Verificar funcionalidade ao redimensionar a tela @done(25-03-31 02:50)
         - Centralizar título da página
 
-        - Verificar checkbox não aparecendo no mobile
+        ✔ Verificar checkbox não aparecendo no mobile @done(25-03-25 01:21)
 
-        - Verificar players sendo posicionados incorretamente
+        ✔ Verificar players sendo posicionados incorretamente @done(25-03-31 02:50)
 
 
     ✔ Portar o webapp para React @done(25-02-12 17:25)
