@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useStreams } from './hooks/useStreams';
 import { useHls } from './hooks/useHls';
 import CameraItem from './components/CameraItem';
+import VideoWrapper from './components/VideoWrapper';
 
 const App: React.FC = () => {
 
@@ -69,15 +70,15 @@ const App: React.FC = () => {
                 <h1>KebradaViewer</h1>
                 <div id="video-container">
                     {selectedCameras.map((index) => (
-                        <div key={index} className="video-wrapper" id={`video-wrapper-${index}`}>
-                            <div className="title-wrapper">
-                                <h4>{streams[index].title}</h4>
-                                <button onClick={() => openInNewTab(streams[index].stream_url)} aria-label="Abrir YOLO em nova aba" title="Abrir YOLO em nova aba">👁️‍🗨️</button>
-                                <button onClick={() => addCamera(streams[index].stream_url, index)} aria-label="Recarregar câmera" title="Recarregar câmera">🔄</button>
-                                <button onClick={() => closeStream(index)} aria-label="Fechar câmera" title="Fechar câmera">❌</button>
-                            </div>
-                            <video id={`video-${index}`} controls width="640" height="360"></video>
-                        </div>
+                        <VideoWrapper
+                            key={index}
+                            index={index}
+                            title={streams[index].title}
+                            streamUrl={streams[index].stream_url}
+                            onOpenInNewTab={openInNewTab}
+                            onReloadCamera={addCamera}
+                            onCloseStream={closeStream}
+                        />
                     ))}
                 </div>
             </div>
