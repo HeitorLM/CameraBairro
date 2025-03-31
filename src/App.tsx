@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useStreams } from './hooks/useStreams';
 import { useHls } from './hooks/useHls';
-import CameraItem from './components/CameraItem';
 import VideoWrapper from './components/VideoWrapper';
+import Sidebar from './components/Sidebar';
 
 const App: React.FC = () => {
-
     const { streams, cameraStatuses } = useStreams();
     const { addCamera, removeCamera } = useHls();
     const [selectedCameras, setSelectedCameras] = useState<number[]>([]);
@@ -14,7 +13,7 @@ const App: React.FC = () => {
     const BASE_URL_YOLO = import.meta.env.VITE_API_BASE_URL_YOLO || 'localhost';
     const API_PORT_YOLO = import.meta.env.VITE_API_PORT_YOLO || '3000';
 
-    const handleCheckboxChange = (index: number, streamUrl: string, streamTitle: string) => {
+    const handleCheckboxChange = (index: number, streamUrl: string) => {
         setSelectedCameras((prevSelectedCameras) => {
             if (prevSelectedCameras.includes(index)) {
                 removeCamera(index);
@@ -50,22 +49,13 @@ const App: React.FC = () => {
             <button id="sidebar-toggle" onClick={() => setIsSidebarOpen(!isSidebarOpen)} title="Abrir/Fechar menu lateral">
                 {isSidebarOpen ? '◄' : '►'}
             </button>
-            <div id="sidebar" className={isSidebarOpen ? '' : 'collapsed'}>
-                <h2>Câmeras</h2>
-                {streams.map((data: any, index: number) => (
-                    <CameraItem
-                        key={index}
-                        index={index}
-                        streamUrl={data.stream_url}
-                        title={data.title}
-                        thumbnailUrl={data.thumbnail_url}
-                        status={data.status}
-                        isSelected={selectedCameras.includes(index)}
-                        isOnline={cameraStatuses[index]}
-                        onCheckboxChange={handleCheckboxChange}
-                    />
-                ))}
-            </div>
+            <Sidebar
+                isOpen={isSidebarOpen}
+                streams={streams}
+                cameraStatuses={Object.values(cameraStatuses)}
+                selectedCameras={selectedCameras}
+                onCheckboxChange={handleCheckboxChange}
+            />
             <div id="main-content">
                 <h1>KebradaViewer</h1>
                 <div id="video-container">
