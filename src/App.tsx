@@ -26,8 +26,8 @@ const App: React.FC = () => {
         });
     };
 
-    const openInNewTab = (streamUrl: string) => {
-        const newTabUrl = `http://${BASE_URL_YOLO}:${API_PORT_YOLO}/?streamUrl=${encodeURIComponent(streamUrl)}`;
+    const openInNewTab = (streamUrl: string, streamTitle: string) => {
+        const newTabUrl = `http://${BASE_URL_YOLO}:${API_PORT_YOLO}/?streamUrl=${encodeURIComponent(streamUrl)}?streamTitle=${encodeURIComponent(streamTitle)}`;
         window.open(newTabUrl, '_blank');
     };
 

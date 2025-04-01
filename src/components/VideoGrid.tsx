@@ -4,7 +4,7 @@ import VideoWrapper from './VideoWrapper';
 interface VideoGridProps {
     selectedCameras: number[];
     streams: { title: string; stream_url: string }[];
-    onOpenInNewTab: (streamUrl: string) => void;
+    onOpenInNewTab: (streamUrl: string, streamTitle: string) => void;
     onReloadCamera: (streamUrl: string, index: number) => void;
     onCloseStream: (index: number) => void;
 }
