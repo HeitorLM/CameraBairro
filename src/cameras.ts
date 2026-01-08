@@ -19,17 +19,17 @@ export default class CameraService {
 
     getCameraStreamURLById(id: number): string | undefined {
         const camera = this.getCameraById(id);
-        return camera ? camera.stream_url : undefined;
+        return camera ? camera.live_url : undefined;
     }
 
     getCameraLastShotById(id: number): string | undefined {
         const camera = this.getCameraById(id);
-        return camera ? camera.lastShot : undefined;
+        return camera ? camera.thumb_url : undefined;
     }
 
     getCameraTitleById(id: number): string | undefined {
         const camera = this.getCameraById(id);
-        return camera ? camera.title : undefined;
+        return camera ? camera.description : undefined;
     }
 
     getCameraLatLongById(id: number): string | undefined {
