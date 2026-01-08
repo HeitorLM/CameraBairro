@@ -1,6 +1,6 @@
 export interface Camera {
     id: number;
-    title: string;
+    description: string;
     latitude: string;
     longitude: string;
     isOnServerFarm: boolean;
@@ -19,8 +19,8 @@ export interface Camera {
     is_webrtc: boolean;
     views: number;
     views_mobile: number;
-    lastShot: string;
-    stream_url: string;
+    thumb_url: string;
+    live_url: string;
     webrtc_data: string;
     District: {
         id: number;
