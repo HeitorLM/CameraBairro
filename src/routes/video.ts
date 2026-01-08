@@ -31,9 +31,9 @@ router.get('/api/cameras', (req, res) => {
 
         cameraURLs.push({
             id: camera.id,
-            title: hashCameraTitle(camera.title),
-            thumbnail_url: camera.lastShot,
-            stream_url: camera.stream_url,
+            title: hashCameraTitle(camera.description),
+            thumbnail_url: camera.thumb_url,
+            stream_url: camera.live_url,
             status: camera.status
         });
     });
